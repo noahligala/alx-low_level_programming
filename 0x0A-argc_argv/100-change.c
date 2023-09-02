@@ -26,7 +26,7 @@ int minCoins(int cents)
 		}
 	}
 
-	return numCoins;
+	return (numCoins);
 }
 
 /**
