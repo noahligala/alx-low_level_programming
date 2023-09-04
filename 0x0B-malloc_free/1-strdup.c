@@ -19,7 +19,7 @@ char *_strup(char *str)
 		i++;
 	}
 
-	s = malloc((sizeof(char) * 1) +1);
+	s = malloc((sizeof(char) * 1) + 1);
 
 	if (s == NULL)
 		return (NULL);
