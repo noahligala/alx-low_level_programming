@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 /**
- * _strup - a function that duplicates a string.
+ * _strdup - a function that duplicates a string.
  * @str: the string to be duplicated.
  *
  * Return: the duplicate string.
