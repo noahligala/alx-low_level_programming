@@ -15,10 +15,11 @@ char *argstostr(int ac, char **av)
 	if (ac == 0 || av == NULL)
 		return (NULL);
 
-	int total_length = 0;
+	int total_length, pos;
 	int i, j, len;
 	char *result;
 
+	total_length = 0;
 	for (i = 0; i < ac; i++)
 	{
 		if (av[i] != NULL)
@@ -34,7 +35,7 @@ char *argstostr(int ac, char **av)
 	if (result == NULL)
 		return (NULL);
 
-	int pos = 0;
+	pos = 0;
 
 	for (i = 0; i < ac; i++)
 	{
