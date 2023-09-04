@@ -12,14 +12,15 @@
  */
 char *argstostr(int ac, char **av)
 {
+	int total_length, pos, i, len;
+	char *result;
+
 	if (ac == 0 || av == NULL)
 		return (NULL);
 
-	int total_length, pos;
-	int i, j, len;
-	char *result;
-
+	pos = 0;
 	total_length = 0;
+
 	for (i = 0; i < ac; i++)
 	{
 		if (av[i] != NULL)
@@ -36,20 +37,24 @@ char *argstostr(int ac, char **av)
 		return (NULL);
 
 	pos = 0;
-
 	for (i = 0; i < ac; i++)
 	{
 		if (av[i] != NULL)
 		{
 			len = 0;
 			while (av[i][len] != '\0')
+				len++;
+			result[pos] = av[i][len];
+			pos++;
+			len = 0;
+			while (av[i][len] != '\0')
 			{
-				result[pos] = av[len];
+				result[pos] = av[i][len];
 				pos++;
 				len++;
 			}
 			result[pos] = '\n';
-			pos++
+			pos++;
 		}
 	}
 
