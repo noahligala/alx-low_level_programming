@@ -9,9 +9,9 @@
  * Return: the pointer to the pointer of the first memory block on success
  * on failure return NULL.
  */
-void *_calloc(uncsigned int nmemb, unsigned int size)
+void *_calloc(unsigned int nmemb, unsigned int size)
 {
-	vois *ptr;
+	void *ptr;
 	unsigned int i, tot_size;
 
 	/*Check for size values*/
