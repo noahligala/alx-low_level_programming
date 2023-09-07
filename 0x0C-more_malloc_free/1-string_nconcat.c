@@ -28,7 +28,7 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 	if (n >= len2)
 		n = len2;
 	/*Allocate memory for the result string*/
-	resullt = (char *)malloc((len1 + n + 1) * sizeof(char));
+	result = (char *)malloc((len1 + n + 1) * sizeof(char));
 	if (result == NULL)
 		return (NULL);
 	/* Copy s1 to the result strig */
@@ -40,3 +40,4 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 	/*Add the null terminator*/
 	result[i + j] = '\0';
 	return (result);
+}
