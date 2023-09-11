@@ -1,33 +1,13 @@
-#include <stdlib.h>
+#include <stdio.h>
 
-extern char __FILE__[];
-
-int _putchar(char c);
+/**
+ * main - prints the name of the file program was compiled from
+ *
+ * Return: Always 0
+ */
 
 int main(void)
 {
-	char *file_name = __FILE__;
-	char *ptr = file_name;
-
-	while (*ptr)
-		ptr++;
-
-	while (ptr >= file_name && *ptr != '/')
-		ptr--;
-	ptr++;
-
-	while (*ptr)
-	{
-		_putchar(*ptr);
-		ptr++;
-	}
-
-	_putchar('\n');
-
-	exit(EXIT_SUCCESS);
-}
-
-int _putchar(char c)
-{
-	return write(1, &c, 1);
+	printf("%s\n", __FILE__);
+	return (0);
 }
