@@ -3,6 +3,14 @@
 
 #include <stddef.h>
 
+/**
+ * struct list_s - singly linked list.
+ * @str: string - initial malloc allocated string literal.
+ * @len: length of the string in bytes (size_t)
+ * @next: points to the next node.
+ *
+ * Description: singly linked list node structure.
+ */
 typedef struct list_s
 {
 	char *str;
