@@ -20,7 +20,7 @@ void print_address(void *address)
 {
 	size_t i;
 	unsigned long int n = (unsigned long int)address;
-	char hex_digits[] = "0123456789abcdef"
+	char hex_digits[] = "0123456789abcdef";
 
 	_putchar('[');
 	for (i = 0; i < 16; i++)
