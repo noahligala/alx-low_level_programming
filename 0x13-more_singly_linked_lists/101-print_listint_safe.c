@@ -13,46 +13,6 @@ int _putchar(char c)
 }
 
 /**
- * print_listint_safe - Prints a listint_t linked list safely.
- * @head: A pointer to the head of the linked list.
- *
- * Return: The number of nodes in the list.
- */
-size_t print_listint_safe(const listint_t *head)
-{
-	size_t count = 0;
-	const listint_t *current = head;
-	const listint_t *next;
-
-	while (current != NULL)
-	{
-		next = current->next;
-
-		print_address((void *)current);
-		_putchar(' ');
-		print_number(current->n);
-		_putchar('\n');
-		count++;
-
-		if (next >= current)
-		{
-			_putchar('-');
-			_putchar('>');
-			_putchar(' ');
-			print_address((void *)next);
-			_putchar(' ');
-			print_number(next->n);
-			_putchar('\n');
-			break;
-		}
-
-		current = next;
-	}
-
-	return (count);
-}
-
-/**
  * print_address - Prints an address.
  * @address: The address to print.
  */
@@ -94,4 +54,45 @@ void print_number(int n)
 	{
 		_putchar(buffer[--i]);
 	}
+}
+
+
+/**
+ * print_listint_safe - Prints a listint_t linked list safely.
+ * @head: A pointer to the head of the linked list.
+ *
+ * Return: The number of nodes in the list.
+ */
+size_t print_listint_safe(const listint_t *head)
+{
+	size_t count = 0;
+	const listint_t *current = head;
+	const listint_t *next;
+
+	while (current != NULL)
+	{
+		next = current->next;
+
+		print_address((void *)current);
+		_putchar(' ');
+		print_number(current->n);
+		_putchar('\n');
+		count++;
+
+		if (next >= current)
+		{
+			_putchar('-');
+			_putchar('>');
+			_putchar(' ');
+			print_address((void *)next);
+			_putchar(' ');
+			print_number(next->n);
+			_putchar('\n');
+			break;
+		}
+
+		current = next;
+	}
+
+	return (count);
 }
