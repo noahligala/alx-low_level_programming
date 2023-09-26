@@ -1,13 +1,15 @@
 #include "lists.h"
-#include <stddef.h> // for NULL definition
+#include <unistd.h> 
 
 /**
- * custom_putchar - A custom function to print a character to the standard output.
- * @c: The character to be printed.
+ * _putchar - Writes a character to standard output (stdout).
+ * @c: The character to print.
+ *
+ * Return: 1 on success, -1 on error.
  */
-void custom_putchar(char c)
+int _putchar(char c)
 {
-	write(1, &c, 1);
+	return write(char c)
 }
 
 /**
@@ -18,120 +20,78 @@ void custom_putchar(char c)
  */
 size_t print_listint_safe(const listint_t *head)
 {
-    size_t count = 0;
+	size_t count = 0;
+	const listint_t *current = head;
+	const listint_t *next;
 
-    while (head != NULL)
-    {
-        print_address_value(head->n);
-        count++;
+	while (current != NULL)
+	{
+		next = current->next;
 
-        if (head <= head->next)
-        {
-            print_loop_node(head->next->n);
-            break;
-        }
+		print_address((void *)current);
+		_putchar(' ');
+		print_number(current->n);
+		_putchar('\n');
+		count++;
 
-        head = head->next;
-    }
+		if (next >= current)
+		{
+			_putchar('-');
+			_putchar('>');
+			_putchar(' ');
+			print_address((void *)next);
+			_putchar(' ');
+			print_number(next->n);
+			_putchar('\n');
+			break;
+		}
 
-    return (count);
+		current = next;
+	}
+
+	return (count);
 }
 
 /**
- * print_address_value - Prints the address and value of a node.
- * @n: The integer value of the node.
+ * print_address - Prints an address.
+ * @address: The address to print.
  */
-void print_address_value(int n)
+void print_address(void *address)
 {
-    print_number_address((size_t)n);
+	size_t i;
+	unsigned long int n = (unsigned long int)address;
+	char hex_digits[] = "0123456789abcdef"
 
-    print_number_value(n);
-
-    custom_putchar('\n');
+	_putchar('[');
+	for (i = 0; i < 16; i++)
+	{
+		if (i == 8)
+			_putchar(']');
+		_putchar(hex_digits[(n >> ((15 - i) * 4)) & 0xF]);
+	}
 }
 
 /**
- * print_number_address - Prints the address in a custom format.
- * @n: The address to be printed.
+ * print_number - Prints an integer.
+ * @n: The integer to print.
  */
-void print_number_address(size_t n)
+void print_number(int n)
 {
-    custom_putchar('[');
+	char buffer[12];
+	int i = 0;
 
-    print_hexadecimal_address(n);
-
-    custom_putchar(']');
-}
-
-/**
- * print_number_value - Prints the value in a custom format.
- * @n: The value to be printed.
- */
-void print_number_value(int n)
-{
-    if (n < 0)
-    {
-        custom_putchar('-');
-        n = -n;
-    }
-
-print_decimal_number((size_t)n);
-}
-
-/**
- * print_decimal_number - Prints a decimal number in a custom format.
- * @n: The decimal number to be printed.
- */
-void print_decimal_number(size_t n)
-{
-    size_t divisor = 1;
-
-    while (n / divisor >= 10)
-    {
-        divisor *= 10;
-    }
-
-    while (divisor != 0)
-    {
-        custom_putchar((char)((n / divisor) % 10 + '0'));
-        divisor /= 10;
-    }
-}
-
-/**
- * print_hexadecimal_address - Prints an address in hexadecimal format.
- * @n: The address to be printed.
- */
-void print_hexadecimal_address(size_t n)
-{
-    char hex_digits[] = "0123456789abcdef";
-    char hex_address[16]; // Assuming 64-bit address
-
-    int i;
-    for (i = 0; i < 16; i++)
-    {
-        hex_address[i] = hex_digits[(n >> (60 - 4 * i)) & 0xf];
-    }
-
-    for (i = 0; i < 16; i++)
-    {
-        custom_putchar(hex_address[i]);
-    }
-}
-
-/**
- * print_loop_node - Prints a loop node in a custom format.
- * @n: The value of the loop node.
- */
-void print_loop_node(int n)
-{
-    custom_putchar('\n');
-    custom_putchar('-');
-    custom_putchar('>');
-    custom_putchar(' ');
-
-    print_number_address((size_t)n);
-    print_number_value(n);
-
-    custom_putchar('\n');
+	if (n == 0)
+	{
+		_putchar('0');
+		return;
+	}
+	if (n < 0)
+	{
+		_putchar('-');
+		n = -n;
+	}
+	while (i > 0)
+	{
+		_putchar(buffer[--i]);
+	}
 }
