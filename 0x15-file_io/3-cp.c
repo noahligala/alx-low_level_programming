@@ -41,6 +41,12 @@ int main(int argc, char *argv[])
     return (0);
 }
 
+/**
+ * openSourceFile - Opens a source file for reading.
+ * @filename: The name of the source file to open.
+ *
+ * Return: The file descriptor of the opened file, or -1 on failure.
+ */
 
 int openSourceFile(const char *filename)
 {
@@ -48,10 +54,17 @@ int openSourceFile(const char *filename)
     if (fd == -1)
     {
         dprintf(2, "Error: Can't read from file %s\n", filename);
-        return -1;
+        return (-1);
     }
-    return fd;
+    return (fd);
 }
+
+/**
+ * openDestinationFile - Opens a destination file for writing.
+ * @filename: The name of the destination file to open or create.
+ *
+ * Return: The file descriptor of the opened file, or -1 on failure.
+ */
 
 int openDestinationFile(const char *filename)
 {
@@ -59,11 +72,18 @@ int openDestinationFile(const char *filename)
     if (fd_dest == -1)
     {
         dprintf(2, "Error: Can't write to %s\n", filename);
-        return -1;
+        return (-1);
     }
-    return fd_dest;
+    return (fd_dest);
 }
 
+/**
+ * copyFile - Copies the content of one file to another.
+ * @source_fd: The file descriptor of the source file.
+ * @dest_fd: The file descriptor of the destination file.
+ *
+ * Return: 0 on success, or -1 on failure.
+ */
 int copyFile(int source_fd, int dest_fd)
 {
     char buffer[BUFFER_SIZE];
@@ -75,18 +95,27 @@ int copyFile(int source_fd, int dest_fd)
         if (bytes_written == -1 || bytes_written != bytes_read)
         {
             dprintf(2, "Error: Can't write to destination file\n");
-            return -1;
+            return (-1);
         }
-    }
-
+    }    
+    
     if (bytes_read == -1)
     {
         dprintf(2, "Error: Can't read from source file\n");
-        return -1;
+        return (-1);
     }
 
-    return 0;
+    return (0);
 }
+
+/**
+ * closeFiles - Closes file descriptors for source and destination files.
+ * @source_fd: The file descriptor of the source file.
+ * @dest_fd: The file descriptor of the destination file.
+ *
+ * This function closes the specified file descriptors.
+ * If an error occurs while closing a file descriptor, it prints an error message.
+ */
 void closeFiles(int source_fd, int dest_fd)
 {
     if (close(source_fd) == -1 || close(dest_fd) == -1)
