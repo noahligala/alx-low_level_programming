@@ -68,7 +68,10 @@ int openSourceFile(const char *filename)
 
 int openDestinationFile(const char *filename)
 {
-    int fd_dest = open(filename, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+    int fd_dest = open(filename, 
+                            O_WRONLY | O_CREAT | O_TRUNC,
+                            S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+    
     if (fd_dest == -1)
     {
         dprintf(2, "Error: Can't write to %s\n", filename);
