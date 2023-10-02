@@ -62,7 +62,6 @@ int openSourceFile(const char *filename)
 
 int openDestinationFile(const char *filename)
 {
-<<<<<<< HEAD
 	int fd_dest = open(filename,
 			O_WRONLY | O_CREAT | O_TRUNC,
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
@@ -73,18 +72,6 @@ int openDestinationFile(const char *filename)
 		return (-1);
 	}
 	return (fd_dest);
-=======
-    int fd_dest = open(filename, 
-                            O_WRONLY | O_CREAT | O_TRUNC,
-                            S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
-    
-    if (fd_dest == -1)
-    {
-        dprintf(2, "Error: Can't write to %s\n", filename);
-        return (-1);
-    }
-    return (fd_dest);
->>>>>>> 4702e87caeaf8bdcacbf1f6c2847bd0528d1dcce
 }
 
 /**
