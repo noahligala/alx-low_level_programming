@@ -16,14 +16,16 @@ int copyFile(int source_fd, int dest_fd);
 
 int main(int argc, char *argv[])
 {
+    int source_fd, dest_fd;
+
     if (argc != 3)
     {
         dprintf(2, "Usage: %s file_from file_to\n", argv[0]);
         return (97);
     }
     
-    int source_fd = openSourceFile(argv[1]);
-    int dest_fd = openDestinationFile(argv[2]);
+    source_fd = openSourceFile(argv[1]);
+    dest_fd = openDestinationFile(argv[2]);
 
     if (source_fd == -1 || dest_fd == -1)
         return (98);
@@ -37,6 +39,7 @@ int main(int argc, char *argv[])
     closeFiles(source_fd, dest_fd);
     return (0);
 }
+
 
 int openSourceFile(const char *filename)
 {
