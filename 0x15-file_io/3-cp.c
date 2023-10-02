@@ -5,7 +5,14 @@
 
 #define BUFFER_SIZE 1024
 
-// Function prototypes
+/**
+ * main - Copy the content of one file to another.
+ * @argc: The number of arguments.
+ * @argv: An array of argument strings.
+ *
+ * Return: 0 on success, or an error code on failure.
+ */
+
 int openSourceFile(const char *filename);
 int openDestinationFile(const char *filename);
 int copyFile(int source_fd, int dest_fd);
@@ -18,7 +25,7 @@ int main(int argc, char *argv[])
         dprintf(2, "Usage: %s file_from file_to\n", argv[0]);
         return (97);
     }
-
+    
     int source_fd = openSourceFile(argv[1]);
     int dest_fd = openDestinationFile(argv[2]);
 
@@ -30,7 +37,7 @@ int main(int argc, char *argv[])
         closeFiles(source_fd, dest_fd);
         return (99);
     }
-
+    
     closeFiles(source_fd, dest_fd);
     return (0);
 }
