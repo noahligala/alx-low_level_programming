@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
+#include "main.h"
 
 #define BUFFER_SIZE 1024
 
@@ -12,11 +9,6 @@
  *
  * Return: 0 on success, or an error code on failure.
  */
-
-int openSourceFile(const char *filename);
-int openDestinationFile(const char *filename);
-int copyFile(int source_fd, int dest_fd);
-void closeFiles(int source_fd, int dest_fd);
 
 int main(int argc, char *argv[])
 {
