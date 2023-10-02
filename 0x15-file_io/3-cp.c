@@ -13,6 +13,7 @@
 int openSourceFile(const char *filename);
 int openDestinationFile(const char *filename);
 int copyFile(int source_fd, int dest_fd);
+void closeFiles(int source_fd, int dest_fd);
 
 int main(int argc, char *argv[])
 {
@@ -85,4 +86,12 @@ int copyFile(int source_fd, int dest_fd)
     }
 
     return 0;
+}
+void closeFiles(int source_fd, int dest_fd)
+{
+    if (close(source_fd) == -1 || close(dest_fd) == -1)
+    {
+        dprintf(2, "Error: Can't close file descriptor\n");
+        exit(100);
+    }
 }
