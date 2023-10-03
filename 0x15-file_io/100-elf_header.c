@@ -17,13 +17,13 @@ void display_error(char *msg)
 void check_elf(unsigned char *e_ident)
 {
 	int i;
-	
 	unsigned char magic[] = {0x7F, 'E', 'L', 'F'};
+	
 	for (i = 0; i < EI_NIDENT; i++)
 	{
 		if (e_ident[i] != magic[i])
 			display_error("Error: Not an ELF file");
-	}	
+	}
 }
 /**
  * print_elf_header - Print the information from the ELF header.
@@ -65,7 +65,8 @@ void print_elf_header(Elf64_Ehdr *header)
 		default:
 			printf("Unknown\n");
 	}
-	printf("  Version:                           %d (current)\n", header->e_ident[EI_VERSION]);
+	printf("  Version:                           %d (current)\n",header->
+									e_ident[EI_VERSION]);
 	printf("  OS/ABI:                            ");
 	switch (header->e_ident[EI_OSABI])
 	{
@@ -153,7 +154,7 @@ int main(int argc, char *argv[])
 	{
 		close(fd);
 		display_error("Error: Can't read file");
-	}	
+	}
 	check_elf(header.e_ident);
 	print_elf_header(&header);
 	
