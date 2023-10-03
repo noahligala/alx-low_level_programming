@@ -127,6 +127,17 @@ void print_elf_header(Elf64_Ehdr *header)
 	printf("  Entry point address:               %#lx\n", header->e_entry);
 }
 
+/**
+ * main - Entry point of the program.
+ * @argc: The number of command-line arguments.
+ * @argv: An array of pointers to the command-line arguments.
+ *
+ * Return: 0 on success, 98 on error.
+ *
+ * Description: This program displays the information contained in the ELF header
+ * at the start of an ELF file. It checks if the provided file is an ELF file,
+ * prints various attributes from the ELF header, and handles errors accordingly.
+ */
 int main(int argc, char *argv[])
 {
 	if (argc != 2)
@@ -135,7 +146,7 @@ int main(int argc, char *argv[])
 	int fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		display_error("Error: Can't read file");
-
+	
 	Elf64_Ehdr header;
 	if (read(fd, &header, sizeof(header)) != sizeof(header))
 	{
