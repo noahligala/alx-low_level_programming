@@ -7,8 +7,9 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <elf.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+
+#define BUFFER 1024
+#define EI_NIDENT 16
 
 ssize_t read_textfile(const char *filename, size_t letters);
 int _putchar(char c);
@@ -18,15 +19,5 @@ int openSourceFile(const char *filename);
 int openDestinationFile(const char *filename);
 int copyFile(int source_fd, int dest_fd);
 void closeFiles(int source_fd, int dest_fd);
-void check_elf(unsigned char *e_ident);
-void print_magic(unsigned char *e_ident);
-void print_class(unsigned char *e_ident);
-void print_data(unsigned char *e_ident);
-void print_version(unsigned char *e_ident);
-void print_abi(unsigned char *e_ident);
-void print_osabi(unsigned char *e_ident);
-void print_type(unsigned int e_type, unsigned char *e_ident);
-void print_entry(unsigned long int e_entry, unsigned char *e_ident);
-void close_elf(int elf);
 
 #endif
