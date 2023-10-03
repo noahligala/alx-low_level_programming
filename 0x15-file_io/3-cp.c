@@ -55,14 +55,38 @@ void closeFiles(int fd)
  */
 int main(int argc, *argv[])
 {
+<<<<<<< HEAD
 	int from, to, bytes_read, bytes_written;
 	char buffer;
+=======
+<<<<<<< HEAD
+	int fd_dest = open(filename,
+			O_WRONLY | O_CREAT | O_TRUNC,
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+>>>>>>> parent of 456afba... 3-cp.c
 
 	if (argc != 3)
 	{
 		dprintf(STDERR_FILENO, "Usage:cp file from file to\n");
 		exit(97);
 	}
+<<<<<<< HEAD
+=======
+	return (fd_dest);
+=======
+    int fd_dest = open(filename, 
+                            O_WRONLY | O_CREAT | O_TRUNC,
+                            S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+    
+    if (fd_dest == -1)
+    {
+        dprintf(2, "Error: Can't write to %s\n", filename);
+        return (-1);
+    }
+    return (fd_dest);
+>>>>>>> 4702e87caeaf8bdcacbf1f6c2847bd0528d1dcce
+}
+>>>>>>> parent of 456afba... 3-cp.c
 
 	buffer = create_buffer(argv[2]);
 	from = open(argv[1], O_RDONLY);
