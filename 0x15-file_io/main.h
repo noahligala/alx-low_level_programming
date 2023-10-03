@@ -9,6 +9,23 @@
 
 #define BUFFER_SIZE 1024
 
+typedef struct {
+	unsigned char e_ident[16];
+	unsigned short e_type;
+	unsigned short e_machine;
+	unsigned int e_version;
+	unsigned long e_entry;
+	unsigned long e_phoff;
+	unsigned long e_shoff;
+	unsigned int e_flags;
+	unsigned short e_ehsize;
+	unsigned short e_phentsize;
+	unsigned short e_phnum;
+	unsigned short e_shentsize;
+	unsigned short e_shnum;
+	unsigned short e_shstrndx;
+} Elf64_Ehdr;
+
 ssize_t read_textfile(const char *filename, size_t letters);
 int _putchar(char c);
 int create_file(const char *filename, char *text_content);
