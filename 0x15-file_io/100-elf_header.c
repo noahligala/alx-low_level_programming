@@ -148,12 +148,12 @@ int main(int argc, char *argv[])
 		display_error("Error: Can't read file");
 	
 	Elf64_Ehdr header;
+	
 	if (read(fd, &header, sizeof(header)) != sizeof(header))
 	{
 		close(fd);
 		display_error("Error: Can't read file");
-	}
-	
+	}	
 	check_elf(header.e_ident);
 	print_elf_header(&header);
 	
