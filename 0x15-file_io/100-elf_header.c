@@ -1,5 +1,8 @@
 #include "main.h"
 
+#define EI_NIDENT
+#define BUFFER_SIZE 1024
+
 /**
  * display_error - Display an error message and exit with status code 98.
  * @msg: The error message to display.
