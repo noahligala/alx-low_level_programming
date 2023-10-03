@@ -1,122 +1,101 @@
 #include "main.h"
 
 /**
- * main - Copy the content of one file to another.
- * @argc: The number of arguments.
- * @argv: An array of argument strings.
+ * create_buffer - Allocates 1024 bytes for a buffer.
+ * @file: The name of the file buffer is storing chars for.
  *
- * Return: 0 on success, or an error code on failure.
+ * Return: A pointer to the newly-allocated buffer.
  */
 
-int main(int argc, char *argv[])
+char *create_buffer(char *file)
 {
-	int source_fd, dest_fd;
+	char *buffer;
+
+	buffer = malloc(sizeof(char) * BUFFER_SIZE);
+
+	if (buffer == NULL)
+	{
+		dprintf(STDERR_FILNO,
+				"ERROR: Can't write to %s\n", file);
+		exit(99);
+	}
+
+	return (buffer);
+}
+
+/**
+ * closeFiles - Closes file descriptors.
+ * @fd: The file descriptor to be closed.
+ */
+void closeFiles(int fd)
+{
+	int c;
+
+	c = close(fd);
+
+	if (c == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't Close fd %d\n",fd);
+		exit(100);
+	}
+
+}
+
+/**
+ * main - Copies the contents of a file to another file.
+ * @argc: The number of arguments supplied to the program.
+ * @argv: An array of pointers to the arguments.
+ *
+ * Return: 0 on success.
+ *
+ * Description: If the argument count is incorrect - exit code 97.
+ * If file_from does not exist or cannot be read - exit code 98.
+ * If file_to cannot be created or written to - exit code 99.
+ * If file_to or file_from cannot be closed - exit code 100.
+ */
+int main(int argc, *argv[])
+{
+	int from, to, bytes_read, bytes_written;
+	char buffer;
 
 	if (argc != 3)
 	{
-		dprintf(2, "Usage: %s file_from file_to\n", argv[0]);
-		return (97);
+		dprintf(STDERR_FILENO, "Usage:cp file from file to\n");
+		exit(97);
 	}
 
-	source_fd = openSourceFile(argv[1]);
-	dest_fd = openDestinationFile(argv[2]);
+	buffer = create_buffer(argv[2]);
+	from = open(argv[1], O_RDONLY);
+	bytes_read = read(from, buffer, 1024);
+	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
-	if (source_fd == -1 || dest_fd == -1)
-		return (98);
-
-	if (copyFile(source_fd, dest_fd) == -1)
+	do
 	{
-		closeFiles(source_fd, dest_fd);
-		return (99);
-	}
-
-	closeFiles(source_fd, dest_fd);
-	return (0);
-}
-
-/**
- * openSourceFile - Opens a source file for reading.
- * @filename: the name of the source file
- *
- * Return: The file descriptor of the opened file, or -1 on failure.
- */
-
-int openSourceFile(const char *filename)
-{
-	int fd = open(filename, O_RDONLY);
-
-	if (fd == -1)
-	{
-		dprintf(2, "Error: Can't read from file %s\n", filename);
-		return (-1);
-	}
-	return (fd);
-}
-
-/**
- * openDestinationFile - Opens a destination file for writing.
- * @filename: The name of the destination file to open or create.
- *
- * Return: The file descriptor of the opened file, or -1 on failure.
- */
-
-int openDestinationFile(const char *filename)
-{
-	int fd_dest = open(filename,
-			O_WRONLY | O_CREAT | O_TRUNC,
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
-
-	if (fd_dest == -1)
-	{
-		dprintf(2, "Error: Can't write to %s\n", filename);
-		return (-1);
-	}
-	return (fd_dest);
-}
-
-/**
- * copyFile - Copies the content of one file to another.
- * @source_fd: The file descriptor of the source file.
- * @dest_fd: The file descriptor of the destination file.
- *
- * Return: 0 on success, or -1 on failure.
- */
-int copyFile(int source_fd, int dest_fd)
-{
-	char buffer[BUFFER_SIZE];
-	ssize_t bytes_read, bytes_written;
-
-	while ((bytes_read = read(source_fd, buffer, BUFFER_SIZE)) > 0)
-	{
-		bytes_written = write(dest_fd, buffer, bytes_read);
-		if (bytes_written == -1 || bytes_written != bytes_read)
+		if (from == -1 || bytes_read == -1)
 		{
-			dprintf(2, "Error: Can't write to destination file\n");
-			return (-1);
+			dprintf(STDERR_FILENO,
+					"ERROR: Can't read from file %s\n", argv[1]);
+			free(buffer);
+			exit(98);
 		}
-	}
-	if (bytes_read == -1)
-	{
-		dprintf(2, "Error: Can't read from source file\n");
-		return (-1);
-	}
+
+		w = write(to, buffer, r);
+		if (to == -1 || w == -1)
+		{
+			dptintf(STDERR_FILENO,
+				"Error: Can't write to %s\n", argv[2]);
+			free(buffer)
+				exit(99);
+		}
+
+		bytes_read = read(from, buffer, 11024);
+		to = open(argv[2], O_WRONLY | O_APPEND);
+
+	}while (bytes_read > 0);
+
+	free(buffer);
+	closeFiles(from);
+	closeFiles(to);
 
 	return (0);
-}
-
-/**
- * closeFiles - Closes file descriptors for source and destination files.
- * @source_fd: The file descriptor of the source file.
- * @dest_fd: The file descriptor of the destination file.
- *
- * This function closes the specified file descriptors.
- * If an error occurs while closing a file descriptor, it prints an error msg.
- */
-void closeFiles(int source_fd, int dest_fd)
-{
-	if (close(source_fd) == -1 || close(dest_fd) == -1)
-	{
-		dprintf(2, "Error: Can't close file descriptor\n");
-		exit(100);
-	}
 }
