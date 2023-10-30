@@ -15,11 +15,11 @@
 int main(int argc, char *argv[])
 {
     int fd_from, fd_to, bytes_read, bytes_written;
-    char buffer[BUFFER_SIZE];
+	char buffer[BUFFER_SIZE];
 
     if (argc != 3)
     {
-        dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+    	dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
         return (97);
     }
 
