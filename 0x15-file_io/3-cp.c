@@ -31,29 +31,32 @@ int main(int argc, char *argv[])
 	fd_to = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (fd_to == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+		dprintf(STDERR_FILENO, "Error: Can't write to file %s\n", argv[2]);
 		close(fd_from);
 		return (99);
 	}
 
-	while ((bytes_read = read(fd_from, buffer, BUFFER_SIZE)) > 0)
+	while (1)
 	{
+		bytes_read = read(fd_from, buffer, BUFFER_SIZE);
+		if (bytes_read == -1)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+			close(fd_from);
+			close(fd_to);
+			return (98);
+		}
+		if (bytes_read == 0)
+			break;
+
 		bytes_written = write(fd_to, buffer, bytes_read);
 		if (bytes_written == -1)
 		{
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+			dprintf(STDERR_FILENO, "Error: Can't write to file %s\n", argv[2]);
 			close(fd_from);
 			close(fd_to);
 			return (99);
 		}
-	}
-	
-	if (bytes_read == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
-		close(fd_from);
-		close(fd_to);
-		return (98);
 	}
 
 	if (close(fd_from) == -1 || close(fd_to) == -1)
